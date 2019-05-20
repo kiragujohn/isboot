@@ -1,0 +1,17 @@
+/.settings/
+/target/
+/.classpath
+/.project
+/.springBeans
+/test-output/
+/logs/
+/trade43.log
+/bin/
+*.class
+*.zip
+*.log
+*.pgsql
+*.DS_Store
+*.factorypath
+*.jar
+/systemproperty
