@@ -5,7 +5,6 @@
 /.springBeans
 /test-output/
 /logs/
-/trade43.log
 /bin/
 *.class
 *.zip
