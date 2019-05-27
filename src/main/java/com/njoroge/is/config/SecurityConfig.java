@@ -62,16 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure( WebSecurity web ) throws Exception {
 
-        web.ignoring().antMatchers( "/is/config/getinitialdata",
-                "/is/buyer/register",
-                "/is/buyer/register/getbuyerregisterInitialData",
-                "/is/title/getinitialdata", "/is/home/getinitialdata",
-                "/is/user/email/activateuseremail",
-                "/is/user/email/sendforgottenpasswordemail",
-                "/is/user/email/validatepassword",
-                "/is/user/resetforgottenpassword",
-                "/is/user/getforgottenpasswordinitialdata",
-                "/is/user/verifyforgottenpasswordcode" );
+        web.ignoring().antMatchers( "/is/config/getinitialdata" );
 
     }
 

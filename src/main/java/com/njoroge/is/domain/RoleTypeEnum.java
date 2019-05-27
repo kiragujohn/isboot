@@ -7,7 +7,7 @@ package com.njoroge.is.domain;
  */
 public enum RoleTypeEnum {
 
-    USER( 1, "USER" ), CASH( 2, "ADMIN" ), CHEQUE( 3, "GUEST" );
+    USER( 1, "USER" ), ADMIN( 2, "ADMIN" ), GUEST( 3, "GUEST" );
 
     private long id;
     private String name;

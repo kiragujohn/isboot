@@ -19,7 +19,10 @@ public class Account extends AbstractPersistentEntity {
 
     @Column( name = "account_number", nullable = false, unique = true,
             length = 250 )
-    private Integer accountNumber;
+    private Long accountNumber;
+
+    @Column( name = "active", nullable = false, unique = false, length = 250 )
+    private Boolean active;
 
     @ManyToOne( )
     @JoinColumn( name = "fk_account_type", nullable = false )
@@ -28,6 +31,18 @@ public class Account extends AbstractPersistentEntity {
     @ManyToOne( )
     @JoinColumn( name = "fk_user", nullable = false )
     private User user;
+
+
+    public Boolean getActive() {
+
+        return active;
+    }
+
+
+    public void setActive( Boolean active ) {
+
+        this.active = active;
+    }
 
 
     public AccountType getAccountType() {
@@ -54,14 +69,15 @@ public class Account extends AbstractPersistentEntity {
     }
 
 
-    public Integer getAccountNumber() {
+    public Long getAccountNumber() {
 
         return accountNumber;
     }
 
 
-    public void setAccountNumber( Integer accountNumber ) {
+    public void setAccountNumber( Long accountNumber ) {
 
         this.accountNumber = accountNumber;
     }
+
 }

@@ -45,6 +45,9 @@ public class User extends AbstractPersistentEntity {
     @Column( name = "phone", nullable = false )
     private String phone;
 
+    @Column( name = "is_admin", nullable = true )
+    private Boolean isAdmin;
+
     @Temporal( TemporalType.TIMESTAMP )
     @Column( name = "created_date", updatable = true, nullable = false,
             columnDefinition = "TIMESTAMP WITH TIME ZONE" )
@@ -61,6 +64,18 @@ public class User extends AbstractPersistentEntity {
 
     @OneToMany( mappedBy = "user", fetch = FetchType.EAGER )
     private Set<Account> accounts;
+
+
+    public Boolean getIsAdmin() {
+
+        return isAdmin;
+    }
+
+
+    public void setIsAdmin( Boolean isAdmin ) {
+
+        this.isAdmin = isAdmin;
+    }
 
 
     public Set<Account> getAccounts() {

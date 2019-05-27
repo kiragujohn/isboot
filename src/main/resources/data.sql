@@ -9,10 +9,10 @@ VALUES (1, 'South Africa', 'ZA');
 -- =============================================================================
 
 INSERT INTO app_role (id, name) 
-VALUES (1, 'USER');
+VALUES (1, 'ADMIN');
 
 INSERT INTO app_role (id, name) 
-VALUES (2, 'ADMIN');
+VALUES (2, 'USER');
 
 INSERT INTO app_role (id, name) 
 VALUES (3, 'GUEST');
@@ -21,16 +21,16 @@ VALUES (3, 'GUEST');
 
 -- non-encrypted password: jwtpass ADMIN
 INSERT INTO app_user (id, first_name, last_name, email, phone, password, created_date) 
-VALUES (1, 'Admin', 'Admin', 'kiragujohn_admin@gmail.com', '0612430204', '$2a$10$z2WJK9igxsciK9vEpFeefOobflY1pjCFBv3j1KM30NSXK3IKJvway', '2019-09-17 18:47:52.69');
+VALUES (1, 'Admin', 'Admin', 'admin@mail.com', '0612430204', '$2a$10$z2WJK9igxsciK9vEpFeefOobflY1pjCFBv3j1KM30NSXK3IKJvway', '2019-09-17 18:47:52.69');
 
 -- non-encrypted password: jwtpass USER
 INSERT INTO app_user (id, first_name, last_name, email, phone, password, created_date) 
-VALUES (2, 'John', 'Njoroge', 'kiragujohn_user@gmail.com', '0612430204', '$2a$10$z2WJK9igxsciK9vEpFeefOobflY1pjCFBv3j1KM30NSXK3IKJvway', '2019-09-17 18:47:52.69');
+VALUES (2, 'John', 'Njoroge', 'user@mail.com', '0612430204', '$2a$10$z2WJK9igxsciK9vEpFeefOobflY1pjCFBv3j1KM30NSXK3IKJvway', '2019-09-17 18:47:52.69');
 
 
 -- non-encrypted password: jwtpass GUEST
 INSERT INTO app_user (id, first_name, last_name, email, phone, password, created_date) 
-VALUES (3, 'John', 'Njoroge', 'jd@43kare.de', '0612430204', '$2a$10$z2WJK9igxsciK9vEpFeefOobflY1pjCFBv3j1KM30NSXK3IKJvway', '2019-09-17 18:47:52.69');
+VALUES (3, 'John', 'Njoroge', 'guest@mail.com', '0612430204', '$2a$10$z2WJK9igxsciK9vEpFeefOobflY1pjCFBv3j1KM30NSXK3IKJvway', '2019-09-17 18:47:52.69');
 
 
 -- =============================================================================
@@ -43,7 +43,7 @@ INSERT INTO address_type (id, name) VALUES (2, 'POSTAL');
 INSERT INTO address (id, first_line, second_line, post_code, town_or_city, 
 fk_country, fk_address_type, fk_user) 
 VALUES (1, 'Blake House ', '32 Flanders Drive, Mount Edgecombie ' , '4300 ', 
-'Durban', 1, 1, 1);
+'Durban', 1, 1, 2);
 
 -- =============================================================================
 
@@ -55,11 +55,11 @@ VALUES (2, 'SAVINGS');
 
 -- =============================================================================
 
-INSERT INTO account (id, account_number, fk_account_type, fk_user) 
-VALUES (1, 1111111, 1, 2);
+INSERT INTO account (id, account_number, active, fk_account_type, fk_user) 
+VALUES (1, 1111111, true, 1, 2);
 
-INSERT INTO account (id, account_number, fk_account_type, fk_user) 
-VALUES (2, 2222222, 2, 2);
+INSERT INTO account (id, account_number, active, fk_account_type, fk_user) 
+VALUES (2, 2222222, true, 2, 2);
 
 -- =============================================================================
 
@@ -95,8 +95,8 @@ VALUES (3, 'USD');
 --VALUES (1, 01010101, 'Jan Rent', '2018-12-17 18:47:52.69', 20000, 1, 1, 2);
 
 
-INSERT INTO user_role(id, fk_user, fk_role) VALUES (1, 3, 2);
+INSERT INTO user_role(id, fk_user, fk_role) VALUES (1, 1, 1);
 
-INSERT INTO user_role(id, fk_user, fk_role) VALUES (2, 2, 3);
+INSERT INTO user_role(id, fk_user, fk_role) VALUES (2, 2, 2);
 
-INSERT INTO user_role(id, fk_user, fk_role) VALUES (3, 1, 1);
+INSERT INTO user_role(id, fk_user, fk_role) VALUES (3, 3, 3);

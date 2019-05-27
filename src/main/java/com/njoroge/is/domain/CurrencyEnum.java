@@ -5,7 +5,7 @@ package com.njoroge.is.domain;
  * @author John Njoroge
  * @date 16/05/2019
  */
-public enum CurrencyTypeEnum {
+public enum CurrencyEnum {
 
     EUR( 1, "EUR" ),
     USD( 2, "USD" ),
@@ -16,7 +16,7 @@ public enum CurrencyTypeEnum {
     private String name;
 
 
-    private CurrencyTypeEnum( long id, String name ) {
+    private CurrencyEnum( long id, String name ) {
 
         this.id = id;
         this.name = name;

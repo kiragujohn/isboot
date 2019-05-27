@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.njoroge.is.domain.Role;
 import com.njoroge.is.domain.User;
+import com.njoroge.is.repository.RoleRepository;
 import com.njoroge.is.repository.UserRepository;
 import com.njoroge.is.service.role.RoleService;
 

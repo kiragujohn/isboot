@@ -17,7 +17,8 @@ import com.njoroge.is.service.login.LoginServiceImpl;
  * @date 16/05/2019
  */
 @RestController
-@RequestMapping( "/trade43/login" )
+@RequestMapping( "/is/login" )
+
 public class LoginController {
 
     @Autowired
@@ -31,7 +32,6 @@ public class LoginController {
         LoginInitialData loginInitialData = loginService.getLoginInitialData(
                 email );
 
-        return ResponseEntity.status( HttpStatus.OK ).body(
-                loginInitialData );
+        return ResponseEntity.status( HttpStatus.OK ).body( loginInitialData );
     }
 }

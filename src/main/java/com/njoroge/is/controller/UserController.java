@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 16/05/2019
  */
 @RestController
-@RequestMapping( "/trade43/user" )
+@RequestMapping( "/is/user" )
 public class UserController {
 
     public Logger logger = LoggerFactory.getLogger( UserController.class );

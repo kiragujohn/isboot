@@ -12,4 +12,7 @@ import com.njoroge.is.domain.Role;
 public interface RoleRepository extends CrudRepository<Role, Long> {
 
     Role[] findByIdIn( Long[] roleIds );
+
+
+    Role findByRoleName( String roleName );
 }

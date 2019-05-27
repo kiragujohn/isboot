@@ -13,6 +13,7 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.MailPreparationException;
 import org.springframework.mail.SimpleMailMessage;
@@ -55,16 +56,16 @@ public abstract class AbstractEmailHelper {
     @Autowired
     protected HashHelper hashHelper;
 
-    // @Value( "${email.disabled}" )
+    @Value( "${email.disabled}" )
     protected String emailDisabled;
 
-    // @Value( "${email.do.not.reply}" )
+    @Value( "${email.do.not.reply}" )
     protected String emailDoNotReplyTo;
 
-    // @Value( "${hostname}" )
+    @Value( "${hostname}" )
     protected String hostName;
 
-    // Autowired in constructor
+    // @Autowired in constructor
     @SuppressWarnings( "unused" )
     protected FreeMarkerConfigurationFactoryBean freeMarkerConfigurationFactoryBean;
 
@@ -128,8 +129,8 @@ public abstract class AbstractEmailHelper {
 
 
     protected void sendMessageInThread( final SimpleMailMessage templateMessage,
-            final Map<String, Object> model, final Template freemarkerTemplate,
-            File file ) {
+            final Map<String, Object> model,
+            final Template freemarkerTemplate ) {
 
         logger.debug( "Spinning off sending email in seperate thread using "
                 + "freemarker template :" + freemarkerTemplate.getName() );
@@ -140,8 +141,7 @@ public abstract class AbstractEmailHelper {
             public void run() {
 
                 try {
-                    sendMessage( templateMessage, model, freemarkerTemplate,
-                            file );
+                    sendMessage( templateMessage, model, freemarkerTemplate );
                 }
                 catch ( Exception e ) {
 
@@ -159,29 +159,6 @@ public abstract class AbstractEmailHelper {
         Thread thread = new Thread( runnable );
         thread.start();
     }
-
-
-    private void addAttachements( List<File> attachments,
-            MimeMessageHelper helper ) {
-
-        if ( attachments != null ) {
-            if ( attachments.size() > 0 ) {
-                for ( File attachment : attachments ) {
-                    if ( attachment.exists() ) {
-                        try {
-                            helper.addAttachment( attachment.getName(),
-                                    attachment );
-                        }
-                        catch ( MessagingException e ) {
-                            throw new RuntimeException( "Failed to attachments",
-                                    e );
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 
     protected void sendMessage( final SimpleMailMessage templateMessage,
             final Map<String, Object> model, User user,
@@ -219,22 +196,12 @@ public abstract class AbstractEmailHelper {
 
                     helper.setText( text, true );
 
-                    /**
-                     * String staticServeApacheDir =
-                     * propertyHelper.getPropertyValue(
-                     * PropertyHelper.STATIC_SERVE_APACHE_DIR );
-                     *
-                     * String inapesaMailLogoPath = staticServeApacheDir +
-                     * "/images/emaillogo.png";
-                     **/
-
                     if ( emailLogoFile != null ) {
                         if ( emailLogoFile.exists() ) {
                             helper.addInline( "logoemail01", emailLogoFile );
                         }
                     }
 
-                    addAttachements( attachments, helper );
                 }
                 catch ( IOException e ) {
 
@@ -254,8 +221,8 @@ public abstract class AbstractEmailHelper {
 
 
     protected void sendMessage( final SimpleMailMessage templateMessage,
-            final Map<String, Object> model, final Template freemarkerTemplate,
-            File emailLogoFile ) {
+            final Map<String, Object> model,
+            final Template freemarkerTemplate ) {
 
         if ( emailDisabled != null && "true".equals( emailDisabled ) ) {
 
@@ -285,32 +252,11 @@ public abstract class AbstractEmailHelper {
 
                     model.put( "img", "none" );
 
-                    if ( emailLogoFile != null ) {
-                        if ( emailLogoFile.exists() ) {
-                            model.put( "img", "img" );
-                        }
-                    }
-
                     String text = FreeMarkerTemplateUtils
                             .processTemplateIntoString( freemarkerTemplate,
                                     model );
 
                     helper.setText( text, true );
-
-                    /**
-                     * String staticServeApacheDir =
-                     * propertyHelper.getPropertyValue(
-                     * PropertyHelper.STATIC_SERVE_APACHE_DIR );
-                     *
-                     * String inapesaMailLogoPath = staticServeApacheDir +
-                     * "/images/emaillogo.png";
-                     **/
-
-                    if ( emailLogoFile != null ) {
-                        if ( emailLogoFile.exists() ) {
-                            helper.addInline( "logoemail01", emailLogoFile );
-                        }
-                    }
                 }
                 catch ( IOException e ) {
 
@@ -329,17 +275,10 @@ public abstract class AbstractEmailHelper {
     }
 
 
-    // protected void createFooterModel( Map<String, Object> model,
-    // Locale locale ) {
-    //
-    // String management = resourceBundleMessageSource.getMessage(
-    // "EmailHelperImpl.management", new Object[] {}, locale );
-    //
-    // String formattedManagement = MessageFormat.format( management,
-    // organisation.getName() );
-    //
-    // model.put( "management", formattedManagement );
-    // model.put( "alt", organisation.getName() );
-    // model.put( "title", organisation.getName() );
-    // }
+    protected void createFooterModel( Map<String, Object> model ) {
+
+        model.put( "management", "IS" );
+        model.put( "alt", "IS" );
+        model.put( "title", "IS" );
+    }
 }
